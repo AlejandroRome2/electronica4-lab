@@ -8,11 +8,48 @@
 #define JSON_CLAVE_NOMBRE "\"nombre\":\""
 #define JSON_CLAVE_APELLIDO "\",\"apellido\":\""
 #define JSON_CLAVE_DOCUMENTO "\",\"documento\":"
-#define JSON_COMILLA_CIERRE "\""
 
+/**
+ * @brief Serializa una cadena de texto en la salida.
+ *
+ * Copia el texto recibido dentro de la cadena de salida, siempre que
+ * exista espacio suficiente.
+ *
+ * @param[out] salida Cadena donde se copia el texto.
+ * @param[in] capacidad Cantidad de bytes disponibles en la salida.
+ * @param[in] texto Cadena de texto a copiar.
+ *
+ * @return Cantidad de caracteres copiados, o -1 si no hay espacio suficiente.
+ */
 static int SerializarTexto(char * salida, size_t capacidad, char const * texto);
+
+/**
+ * @brief Serializa un valor numérico en la salida.
+ *
+ * Convierte el número recibido a texto decimal y lo copia en la cadena
+ * de salida, siempre que exista espacio suficiente.
+ *
+ * @param[out] salida Cadena donde se copia el número convertido.
+ * @param[in] capacidad Cantidad de bytes disponibles en la salida.
+ * @param[in] valor Número a serializar.
+ *
+ * @return Cantidad de caracteres copiados, o -1 si no hay espacio suficiente.
+ */
 static int SerializarNumero(char * salida, size_t capacidad, unsigned int valor);
 
+/**
+ * @brief Genera una cadena JSON con los datos de un alumno.
+ *
+ * La función construye una cadena con el formato:
+ * {"nombre":"...","apellido":"...","documento":...}
+ *
+ * @param[in] alumno Puntero a la estructura con los datos del alumno.
+ * @param[out] salida Cadena donde se almacena el resultado.
+ * @param[in] capacidad Cantidad de bytes disponibles en la cadena de salida.
+ *
+ * @return Longitud de la cadena generada, o -1 si el espacio no es suficiente
+ *         o si los punteros recibidos no son válidos.
+ */
 int Serializar(alumno_t const * alumno, char * salida, size_t capacidad)
 {
     size_t usados;
