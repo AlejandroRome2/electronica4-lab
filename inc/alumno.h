@@ -3,39 +3,39 @@
 
 #include <stddef.h>
 
-/** @brief Cantidad máxima de caracteres para el nombre. */
-#define ALUMNO_NOMBRE_MAX 32
-
-/** @brief Cantidad máxima de caracteres para el apellido. */
-#define ALUMNO_APELLIDO_MAX 32
+/**
+ * @brief Tipo de dato opaco para representar un alumno.
+ */
+typedef struct alumno_s alumno_t;
 
 /**
- * @brief Estructura con la información de un alumno.
+ * @brief Crea un alumno con apellido, nombre y documento.
+ *
+ * @param[in] apellido Cadena con el apellido del alumno.
+ * @param[in] nombre Cadena con el nombre del alumno.
+ * @param[in] documento Documento del alumno.
+ *
+ * @return Puntero al alumno creado, o NULL si no se pudo crear.
  */
-typedef struct
-{
-    /** @brief Nombre del alumno. */
-    char nombre[ALUMNO_NOMBRE_MAX];
+alumno_t * AlumnoCrear(char const * apellido, char const * nombre, unsigned int documento);
 
-    /** @brief Apellido del alumno. */
-    char apellido[ALUMNO_APELLIDO_MAX];
-
-    /** @brief Documento del alumno. */
-    unsigned int documento;
-} alumno_t;
+/**
+ * @brief Libera o invalida un alumno creado previamente.
+ *
+ * @param[in] alumno Puntero al alumno a destruir.
+ */
+void AlumnoDestruir(alumno_t * alumno);
 
 /**
  * @brief Serializa los datos de un alumno en formato JSON.
  *
- * Genera una cadena JSON con el nombre, apellido y documento del alumno.
- *
- * @param[in] alumno Puntero a la estructura con los datos del alumno.
- * @param[out] salida Cadena donde se almacena el resultado.
- * @param[in] capacidad Cantidad de bytes disponibles en la cadena de salida.
+ * @param[in] alumno Puntero al alumno a serializar.
+ * @param[out] salida Arreglo de caracteres donde se almacena el resultado.
+ * @param[in] capacidad Cantidad de bytes disponibles en la salida.
  *
  * @return Longitud de la cadena generada, o -1 si el espacio no es suficiente
- *         o si los punteros recibidos no son válidos.
+ *         o si los parámetros no son válidos.
  */
-int Serializar(alumno_t const * alumno, char * salida, size_t capacidad);
+int AlumnoSerializar(alumno_t const * alumno, char * salida, size_t capacidad);
 
 #endif
